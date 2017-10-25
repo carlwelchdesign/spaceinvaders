@@ -1,0 +1,24 @@
+{
+  "name": "level_up",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://carlwelchdesign@bitbucket.org/thelim3y/levelup.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/thelim3y/levelup#readme",
+  "devDependencies": {
+    "@orange-games/phaser-input": "^2.0.5",
+    "gulp-webserver": "^0.9.1"
+  },
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-webserver": "^0.9.1"
+  }
+}

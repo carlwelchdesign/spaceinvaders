@@ -1,0 +1,118 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>SEYFARTH - LEVEL UP!</title>
+
+	<script src="js/vendors/fontfaceobserver.js"></script>
+	<script src="js/vendors/phaser.js"></script>
+	<script src="js/vendors//phaser-input.min.js"></script>
+
+	<script src="js/states/intro.js"></script>
+	<script src="js/states/tutorial.js"></script>
+	<script src="js/states/controller.js"></script>
+	<script src="js/states/keyboard.js"></script>
+	<script src="js/states/enter-name.js"></script>
+	<script src="js/states/score-table.js"></script>
+	<script src="js/states/the-game.js"></script>
+	<script src="js/states/you-win.js"></script>
+	<script src="js/states/game-over.js"></script>
+	
+	<style>
+		@font-face {
+			font-family: jeebz;
+			src: local('jeebz'), local('jeebz'), url(assets/fonts/jeebz-regular.ttf) format('truetype');
+			src: url(assets/fonts/jeebz-regular.ttf) format('truetype');
+		}
+		body {
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+			font-family: jeebz;
+			background: black;
+		}
+		canvas{
+			margin: auto;
+		}
+	</style>
+
+    <script>
+		window.onload = function() {
+			SEYFARTH = {
+				isDemo: true,
+				demoScreenTime: 5,
+				fontFamily: 'jeebz',
+				fontSize: '21px',
+				gameFontSize: '20px',
+				volume: 0.5,
+				gameVolume: 0.2,
+				debug: false,
+				gamepad: null,
+				gamepadButtonPressed: function() {
+					if(
+						SEYFARTH.gamepad.isDown(Phaser.Gamepad.XBOX360_A) ||
+						SEYFARTH.gamepad.isDown(Phaser.Gamepad.XBOX360_B)
+					) {
+						return true;
+					}
+
+					return false;
+				},
+				mapGenericKeys: function(game) {
+					game.input.keyboard.addKey(Phaser.Keyboard.F).onDown.add(function() {
+						if(game.scale.isFullScreen) {
+							game.scale.stopFullScreen();
+						}
+						else {
+							game.scale.startFullScreen(false);
+						}
+					}, this);
+
+					game.input.keyboard.addKey(Phaser.Keyboard.M).onDown.add(function() {
+						if(SEYFARTH.music.isPlaying) {
+							SEYFARTH.music.pause();
+						}
+						else {
+							SEYFARTH.music.resume();
+						}
+					}, this);
+				}
+			};
+			const game = new Phaser.Game(
+				1364, 
+				768, 
+				Phaser.AUTO, 
+				'levelup');
+
+			// Needs to tick once to setup the Phaser object correctly
+			setTimeout(() => {
+				game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+				game.input.gamepad.start();
+				SEYFARTH.gamepad = game.input.gamepad.pad1;
+
+				game.state.add('INTRO', stateIntro);
+				game.state.add('TUTORIAL', stateTutorial);
+				game.state.add('STATE_CONTROLLER', stateController);
+				game.state.add('STATE_KEYBOARD', stateKeyboard);
+				game.state.add('STATE_ENTERNAME', stateEnterName);
+				game.state.add('STATE_SCORETABLE', stateScoreTable);
+				game.state.add('THE_GAME', stateGame);
+				game.state.add('STATE_YOUWIN', stateYouWin);
+				game.state.add('STATE_GAMEOVER', stateGameOver);
+				game.state.start("INTRO");
+				// game.state.start("THE_GAME");
+				// game.state.start('STATE_YOUWIN');
+				// game.state.start('STATE_CONTROLLER');
+				// game.state.start('SCORE_TABLE');
+			}, 0);
+		}
+	</script>
+</head>
+<body>
+	<div style="font-family: jeebz; position: absolute; left:-10000px">JEEBZ</div>
+</body>
+</html>
